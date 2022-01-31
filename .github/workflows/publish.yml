@@ -13,7 +13,9 @@ jobs:
           ref: ${{ github.head_ref }}
 
       - name: Create a text file with random numbers
-        run: echo $((1 + $RANDOM % 99999999)) > README.md
+        run: |
+          RNG = $((1 + $RANDOM % 99999999))
+          echo $RNG > README.md
 
       - name: Check for modified files
         id: git-check
