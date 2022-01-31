@@ -3,6 +3,8 @@ name: publish
 on:
   push:
     branches: [main, dev]
+  schedule:
+  - cron: "* * * * *"
 
 jobs:
   test-generator:
