@@ -5,27 +5,7 @@ on:
     branches: [main, dev]
 
 jobs:
-  publish:
-    runs-on: ubuntu-latest
-
-    steps:
-    - uses: actions/checkout@v2
-
-    - name: GHCR Login
-      uses: khlam/login-action@v1
-      with:
-        registry: ghcr.io
-        username: ${{ github.actor }}
-        password: ${{ secrets.GITHUB_TOKEN }}
-
-    - name: build and publish
-      run: |
-        docker build . --squash --tag ghcr.io/${{ github.repository }}/latexmk:latest
-        docker run ghcr.io/${{ github.repository }}/latexmk:latest
-        docker push ghcr.io/${{ github.repository }}/latexmk:latest
-
-jobs:
-  config-generator:
+  test-generator:
     runs-on: ubuntu-latest
     steps: 
       - uses: actions/checkout@v2
