@@ -24,6 +24,6 @@ jobs:
         run:  |
           git config --global user.email "${GH_USERNAME}@users.noreply.github.com"
           git config --global user.name "${GH_USERNAME}"
-          git add -A
+          git add -A .
           git commit -m '[automated commit] created value'
           git push
