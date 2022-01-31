@@ -14,8 +14,7 @@ jobs:
 
       - name: Create a text file with random numbers
         run: |
-          RNG = $((1 + $RANDOM % 99999999))
-          echo $RNG > README.md
+          echo $((1 + $RANDOM % 99999999)) > README.md
 
       - name: Check for modified files
         id: git-check
