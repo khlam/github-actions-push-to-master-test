@@ -4,29 +4,22 @@ on:
   push:
     branches: [main, dev]
   schedule:
-  - cron: "* * * * 1-5"
+    - cron: "* * * * 1-5"  # Every minute on weekdays
 
 jobs:
   test-generator:
     runs-on: ubuntu-latest
-    steps: 
-      - uses: actions/checkout@v2
-        with:
-          ref: ${{ github.head_ref }}
+
+    steps:
+      - uses: actions/checkout@v3
 
       - name: Create a text file with random numbers
-        run: |
-          echo $((1 + $RANDOM % 99999999)) > README.md
-
-      - name: Check for modified files
-        id: git-check
-        run: echo ::set-output name=modified::$(if [ -n "$(git status --porcelain)" ]; then echo "true"; else echo "false"; fi)
+        run: echo $((1 + RANDOM % 99999999)) > README.md
 
       - name: Update changes in GitHub repository
-        if: steps.git-check.outputs.modified == 'true'
-        run:  |
-          git config --global user.email "${{github.actor}}@users.noreply.github.com"
-          git config --global user.name "${{github.actor}}"
+        run: |
+          git config --global user.email "${{ github.actor }}@users.noreply.github.com"
+          git config --global user.name "${{ github.actor }}"
           git add -A .
-          git commit -m '[automated commit] created value'
-          git push
+          git commit -m '[automated commit] created value' || echo "No changes to commit"
+          git push || echo "No changes to push"
